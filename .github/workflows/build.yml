@@ -24,8 +24,10 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install west
-        run: pip install west
+      - name: Install west and dependencies
+        run: |
+          pip install west
+          pip install patoolib
 
       - name: West Init & Update
         run: |
