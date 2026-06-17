@@ -33,6 +33,11 @@ jobs:
           west init -l app
           west update
 
+      - name: Install Zephyr SDK
+        run: |
+          cd zmk
+          west sdk install
+
       - name: Build
         run: |
           cd zmk/app
