@@ -36,7 +36,7 @@ jobs:
       - name: Build
         run: |
           cd zmk/app
-          west build -b seeed_xiao_nrf52840 -- -DSHIELD=des -DZMK_CONFIG=${{ github.workspace }}/config
+          west build -b xiao_ble -- -DSHIELD=des -DZMK_CONFIG=${{ github.workspace }}/config
 
       - name: Upload Firmware
         uses: actions/upload-artifact@v4
