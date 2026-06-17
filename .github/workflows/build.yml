@@ -26,8 +26,7 @@ jobs:
 
       - name: Install west and dependencies
         run: |
-          pip install west
-          pip install patool
+          pip install west requests patool
 
       - name: West Init & Update
         run: |
