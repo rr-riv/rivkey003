@@ -19,7 +19,15 @@ jobs:
           ref: main
           path: zmk
 
-      - name: Initialize west
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install west
+        run: pip install west
+
+      - name: West Init & Update
         run: |
           cd zmk
           west init -l app
@@ -30,7 +38,7 @@ jobs:
           cd zmk/app
           west build -b seeed_xiao_nrf52840 -- -DSHIELD=des -DZMK_CONFIG=${{ github.workspace }}/config
 
-      - name: Archive firmware
+      - name: Upload Firmware
         uses: actions/upload-artifact@v4
         with:
           name: zmk-firmware
