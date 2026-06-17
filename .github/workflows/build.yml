@@ -24,9 +24,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install west and dependencies
-        run: |
-          pip install west requests patool
+      - name: Install west
+        run: pip install west
 
       - name: West Init & Update
         run: |
@@ -34,13 +33,17 @@ jobs:
           west init -l app
           west update
 
-      - name: Install Zephyr SDK
+      - name: Install Zephyr SDK (manual)
         run: |
-          cd zmk
-          west sdk install
+          mkdir -p $HOME/zephyr-sdk
+          cd $HOME/zephyr-sdk
+          wget -q https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_linux-x86_64.tar.xz
+          tar xf zephyr-sdk-0.16.8_linux-x86_64.tar.xz
+          ./zephyr-sdk-0.16.8/setup.sh -t all -h -c
 
       - name: Build
         run: |
+          export ZEPHYR_SDK_INSTALL_DIR=$HOME/zephyr-sdk/zephyr-sdk-0.16.8
           cd zmk/app
           west build -b xiao_ble -- -DZMK_CONFIG=${{ github.workspace }}/config
 
