@@ -1,8 +1,33 @@
-CONFIG_ZMK_SPLIT=y
-CONFIG_ZMK_BLE=y
-CONFIG_ZMK_USB=y
+#include "layouts.dtsi"
 
-CONFIG_ZMK_BATTERY_REPORTING=y
-CONFIG_ZMK_IDLE_SLEEP_TIMEOUT=30000
+/ {
+    chosen {
+        zmk,kscan = &kscan0;
+        zmk,matrix-transform = &physical_layout0;
+    };
 
-CONFIG_ZMK_PHYSICAL_LAYOUTS=n
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-matrix";
+        diode-direction = "col2row";
+
+        row-gpios
+            = <&gpio0 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&gpio0 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            ;
+
+        col-gpios
+            = <&gpio0 4 GPIO_ACTIVE_HIGH>
+            , <&gpio0 5 GPIO_ACTIVE_HIGH>
+            , <&gpio0 6 GPIO_ACTIVE_HIGH>
+            , <&gpio0 7 GPIO_ACTIVE_HIGH>
+            , <&gpio0 8 GPIO_ACTIVE_HIGH>
+            , <&gpio0 9 GPIO_ACTIVE_HIGH>
+            , <&gpio0 10 GPIO_ACTIVE_HIGH>
+            , <&gpio0 11 GPIO_ACTIVE_HIGH>
+            , <&gpio0 12 GPIO_ACTIVE_HIGH>
+            , <&gpio0 13 GPIO_ACTIVE_HIGH>
+            ;
+    };
+};
