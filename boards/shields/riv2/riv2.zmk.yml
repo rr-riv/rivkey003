@@ -1,0 +1,14 @@
+
+file_format: "1"
+id: riv2
+name: riv2
+type: shield
+features:
+  - keys
+  - studio
+outputs:
+  - usb
+  - ble
+siblings:
+  - riv2_left
+  - riv2_right
