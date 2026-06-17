@@ -9,11 +9,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout user config
         uses: actions/checkout@v4
 
-      - name: Build ZMK
-        uses: zmkfirmware/zmk/.github/actions/build-zmk@main
+      - name: Checkout ZMK
+        uses: actions/checkout@v4
         with:
-          board: "riv2"           # ← riv2 の場合このまま試す
-          shield: "riv2"          # ← riv2 の場合このまま試す（必要に応じて変更）
+          repository: zmkfirmware/zmk
+          ref: main
+          path: zmk
+
+      - name: Initialize west
+        run: |
+          cd zmk
+          west init -l app
+          west update
+
+      - name: Build
+        run: |
+          cd zmk/app
+          west build -b seeed_xiao_nrf52840 -- -DSHIELD=des -DZMK_CONFIG=${{ github.workspace }}/config
+
+      - name: Archive firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: zmk-firmware
+          path: zmk/app/build/zephyr/zmk.uf2
