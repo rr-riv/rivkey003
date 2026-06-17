@@ -24,8 +24,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install west
-        run: pip install west
+      - name: Install west and Python dependencies
+        run: |
+          pip install west requests patool pyelftools
 
       - name: West Init & Update
         run: |
