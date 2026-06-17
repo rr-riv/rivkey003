@@ -15,3 +15,5 @@ jobs:
       - name: Build ZMK
         uses: zmkfirmware/zmk/.github/actions/build-zmk@main
         with:
+          board: "rivkey"      # ← ここをAuto-KDK出力のボード名に変更（例: nice_nano_v2 など）
+          shield: "rivkey"    # ← ここをAuto-KDKで生成されたシールド名に変更j
